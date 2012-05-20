@@ -49,7 +49,7 @@ class Command(BaseCommand):
             self.ping_once()
             if not options['loop']:
                 break
-            sleep(10)
+            sleep(3600)
 
     def ping_once(self):
         hosts = []
