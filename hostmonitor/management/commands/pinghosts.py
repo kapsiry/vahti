@@ -2,6 +2,7 @@ from datetime import datetime
 from subprocess import Popen, PIPE
 from time import sleep
 from optparse import make_option
+import socket
 
 from django.core.management.base import BaseCommand, CommandError
 
@@ -11,7 +12,6 @@ FPING = 'fping'
 
 def ping_hosts(hosts):
     args = [FPING] + hosts
-    print " ".join(args)
     p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     (fping_out, fping_err) = p.communicate()
     out_lines = fping_out.split("\n")
@@ -20,6 +20,13 @@ def ping_hosts(hosts):
     down = [x.split(" ",1)[0] for x in out_lines if ' is unreachable' in x]
     #down += [x.split(" ",1)[0] for x in err_lines]
     return (set(up), set(down))
+
+def dns_lookup(hosts):
+    if hasattr(socket, 'setdefaulttimeout'):
+        # Set the default timeout on sockets to 5 seconds
+        socket.setdefaulttimeout(5)
+    names = [socket.gethostbyaddr(ip)[0] for ip in hosts]
+    return dict(zip(hosts, names))
 
 class Command(BaseCommand):
     args = ''
@@ -42,12 +49,14 @@ class Command(BaseCommand):
         hosts = []
         for host in Host.objects.filter(monitor=True):
             hosts.append(host.ip)
-        print hosts
         self.stdout.write("Pinging all monitored hosts\n")
         (up, down) = ping_hosts(hosts)
+        self.stdout.write("Resolving DNS names\n")
+        names = dns_lookup(hosts)
         for ip in up:
             self.stdout.write("%s up\n" % ip)
             h = Host.objects.get(ip=ip)
+            h.name = names[ip]
             h.up = True
             h.last_up = datetime.now()
             if not h.up_since:
@@ -56,6 +65,7 @@ class Command(BaseCommand):
         for ip in down:
             self.stdout.write("%s down\n" % ip)
             h = Host.objects.get(ip=ip)
+            h.name = names[ip]
             h.up = False
             h.up_since = None
             h.save()
