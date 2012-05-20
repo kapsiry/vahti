@@ -3,11 +3,22 @@
 
 {% block content %}
     <h2>Hosts</h2>
+    {% if object_list %}
     <ul>
         {% for host in object_list %}
             <li class="{{ host.up|isup }}">{{ host }}:
               <span class="status">{{ host.up|isup }}</span>
+              {% if not host.up %}
+                {% if host.last_up %}
+                  (last up on {{host.last_up}})
+                {% else %}
+                  (never up before)
+                {% endif %}
+              {% endif %}
             </li>
         {% endfor %}
     </ul>
+    {% else %}
+    <p>No hosts. Use <code>manage.py addhost</code> to add hosts to monitor.</p>
+    {% endif %}
 {% endblock %}
