@@ -29,3 +29,5 @@ Alternatively, the system can be started without foreman:
 
     (vahti) $ ./manage.py pinghosts --loop &
     (vahti) $ ./manage.py runserver &    
+
+![Vahti screenshot](http://joneskoo.kapsi.fi/tmp/vahti.png)
