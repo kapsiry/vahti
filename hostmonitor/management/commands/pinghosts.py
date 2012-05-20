@@ -25,7 +25,13 @@ def dns_lookup(hosts):
     if hasattr(socket, 'setdefaulttimeout'):
         # Set the default timeout on sockets to 5 seconds
         socket.setdefaulttimeout(5)
-    names = [socket.gethostbyaddr(ip)[0] for ip in hosts]
+    names = []
+    for ip in hosts:
+        try:
+            names.append(socket.gethostbyaddr(ip)[0])
+        except socket.herror:
+            print ip
+            names.append(None)
     return dict(zip(hosts, names))
 
 class Command(BaseCommand):

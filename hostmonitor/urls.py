@@ -6,5 +6,6 @@ from hostmonitor.models import Host
 urlpatterns = patterns('',
     (r'^$', ListView.as_view(
         model=Host,
+        queryset=Host.objects.order_by('-up'),
     )),
 )
