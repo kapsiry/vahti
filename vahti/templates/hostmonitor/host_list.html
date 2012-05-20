@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load hostmonitor_extras %}
+
+{% block content %}
+    <h2>Hosts</h2>
+    <ul>
+        {% for host in object_list %}
+            <li class="{{ host.up|isup }}">{{ host }}:
+              <span class="status">{{ host.up|isup }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

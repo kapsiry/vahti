@@ -1,0 +1,10 @@
+li.up .status {
+    color: green;
+}
+li.down .status {
+    color: red;
+}
+li.unknown .status {
+    color: gray;
+}
+
