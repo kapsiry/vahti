@@ -4,22 +4,31 @@
 {% block content %}
     <h2>Hosts</h2>
     {% if object_list %}
-    <ul>
-        {% for host in object_list %}
-            <li class="{{ host.up|isup }}">{{ host }}:
-              <span class="status">{{ host.up|isup }}</span>
-              {% if host.up %}
-                (since {{host.up_since}})
-              {% else %}
-                {% if host.last_up %}
-                  (last up on {{host.last_up}})
-                {% else %}
-                  (never up before)
-                {% endif %}
-              {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+    <table>
+    <tr>
+      <th>IP</th>
+      <th>DNS reverse</th>
+      <th>Status</th>
+    </tr>
+    {% for host in object_list %}
+      <tr class="{{ host.up|isup }}">
+        <td>{{ host.ip }}</td>
+        <td>{{ host.name }}</td>
+        <td>
+          <span class="status">{{ host.up|isup }}</span>
+          {% if host.up %}
+            (since {{host.up_since}})
+          {% else %}
+            {% if host.last_up %}
+              (last up on {{host.last_up}})
+            {% else %}
+              (never up before)
+            {% endif %}
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </table>
     {% else %}
     <p>No hosts. Use <code>manage.py addhost</code> to add hosts to monitor.</p>
     {% endif %}

@@ -1,10 +1,13 @@
-li.up .status {
+.up .status {
     color: green;
 }
-li.down .status {
+.down .status {
     color: red;
 }
-li.unknown .status {
+.unknown .status {
     color: gray;
 }
 
+.status {
+    font-weight: bold;
+}
