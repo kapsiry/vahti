@@ -11,13 +11,15 @@ FPING = 'fping'
 
 def ping_hosts(hosts):
     args = [FPING] + hosts
+    print " ".join(args)
     p = Popen(args, stdin=PIPE, stdout=PIPE, stderr=PIPE)
     (fping_out, fping_err) = p.communicate()
-    up = [x.split(" ",1)[0] for x in fping_out.split("\n")]
-    up = [x for x in up if len(x) > 0]
-    down = [x.split(" ",1)[0] for x in fping_err.split("\n")]
-    down = [x for x in down if len(x) > 0]
-    return (up, down)
+    out_lines = fping_out.split("\n")
+    err_lines = fping_err.split("\n")
+    up = [x.split(" ",1)[0] for x in out_lines if ' is alive' in x]
+    down = [x.split(" ",1)[0] for x in out_lines if ' is unreachable' in x]
+    #down += [x.split(" ",1)[0] for x in err_lines]
+    return (set(up), set(down))
 
 class Command(BaseCommand):
     args = ''
@@ -44,11 +46,16 @@ class Command(BaseCommand):
         self.stdout.write("Pinging all monitored hosts\n")
         (up, down) = ping_hosts(hosts)
         for ip in up:
+            self.stdout.write("%s up\n" % ip)
             h = Host.objects.get(ip=ip)
             h.up = True
             h.last_up = datetime.now()
+            if not h.up_since:
+                h.up_since = datetime.now()
             h.save()
         for ip in down:
+            self.stdout.write("%s down\n" % ip)
             h = Host.objects.get(ip=ip)
             h.up = False
+            h.up_since = None
             h.save()

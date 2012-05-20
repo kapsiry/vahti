@@ -8,7 +8,9 @@
         {% for host in object_list %}
             <li class="{{ host.up|isup }}">{{ host }}:
               <span class="status">{{ host.up|isup }}</span>
-              {% if not host.up %}
+              {% if host.up %}
+                (since {{host.up_since}})
+              {% else %}
                 {% if host.last_up %}
                   (last up on {{host.last_up}})
                 {% else %}

@@ -5,6 +5,7 @@ class Host(models.Model):
     ip = models.GenericIPAddressField(unpack_ipv4=True, unique=True,
         editable=False)
     last_up = models.DateTimeField(null=True, editable=False)
+    up_since = models.DateTimeField(null=True, editable=False)
     up = models.NullBooleanField(default=None)
     monitor = models.BooleanField(default=True)
 

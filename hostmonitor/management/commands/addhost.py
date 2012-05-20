@@ -36,6 +36,7 @@ class Command(BaseCommand):
                 hosts = resolve_dns(target)
                 for host in hosts:
                     self.add_host(host)
+                #self.stderr.write("Invalid host: %s\n" % target)
             # try:
             #     poll = Poll.objects.get(pk=int(poll_id))
             # except Poll.DoesNotExist:
