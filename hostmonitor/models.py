@@ -18,6 +18,7 @@ class Host(models.Model):
 
 
 class Network(models.Model):
+    slug = models.SlugField()
     name = models.CharField(max_length=30, editable=True, unique=True)
 
     def __unicode__(self):
