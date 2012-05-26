@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load hostmonitor_extras %}
+{% load future %}
+{% block header %}
+<h2>Host {{ host }}: {{host.up|isup}}</h2>
+{% endblock %}
+{% block content %}
+<ul>
+  <li>Network: {{ host.network }}</li>
+  <li>Monitored: {{ host.monitor}}</li>
+</ul>
+
+<h3>Event log</h3>
+<table>
+  <tr>
+    <th>Time</th>
+    <th>New status</th>
+  </tr>
+  {% for event in event_list %}
+  <tr>
+    <td>{{event.time}}</td>
+    <td>{{event.up|isup}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
+{% block footer %}
+<a href="{% url 'network-list' %}">Back</p>
+{% endblock %}

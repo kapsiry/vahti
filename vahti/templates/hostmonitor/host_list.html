@@ -14,7 +14,7 @@
     </tr>
     {% for host in object_list %}
       <tr class="{{ host.up|isup }}">
-        <td>{{ host.ip }}</td>
+        <td><a href="{% url "host-detail" pk=host.ip %}">{{ host.ip }}</a></td>
         <td {% if host.name == None %}class="none"{% endif %}>{{ host.name }}</td>
         <td>
           <span class="status">{{ host.up|isup }}</span>
