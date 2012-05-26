@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% load hostmonitor_extras %}
-
+{% load future %}
+{% block header %}
+<h2>Hosts</h2>
+{% endblock %}
 {% block content %}
-    <h2>Hosts</h2>
     {% if object_list %}
     <table>
     <tr>
@@ -13,11 +15,11 @@
     {% for host in object_list %}
       <tr class="{{ host.up|isup }}">
         <td>{{ host.ip }}</td>
-        <td>{{ host.name }}</td>
+        <td {% if host.name == None %}class="none"{% endif %}>{{ host.name }}</td>
         <td>
           <span class="status">{{ host.up|isup }}</span>
           {% if host.up %}
-            (since {{host.up_since}})
+            (since {{host.up_since|date:"j.n.Y H:i" }})
           {% else %}
             {% if host.last_up %}
               (last up on {{host.last_up}})
@@ -32,4 +34,7 @@
     {% else %}
     <p>No hosts. Use <code>manage.py addhost</code> to add hosts to monitor.</p>
     {% endif %}
+{% endblock %}
+{% block footer %}
+<a href="{% url 'network-list' %}">Back</p>
 {% endblock %}
