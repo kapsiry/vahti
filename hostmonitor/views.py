@@ -12,7 +12,7 @@ class HostListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(HostListView, self).get_context_data(**kwargs)
-        context.update({'network' : self.network})
+        context['network'] = self.network
         return context
 
     def get_queryset(self):
