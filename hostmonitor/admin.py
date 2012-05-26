@@ -4,5 +4,8 @@ from hostmonitor.models import Host, Network
 class NetworkAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
 
-admin.site.register(Host)
+class HostAdmin(admin.ModelAdmin):
+    search_fields = ['name', 'ip']
+
+admin.site.register(Host, HostAdmin)
 admin.site.register(Network, NetworkAdmin)
