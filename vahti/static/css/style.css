@@ -1,5 +1,12 @@
+html {
+    width: 100%;
+}
+body {
+    width: 100%;
+}
+
 .up .status {
-    color: green;
+    color: #8CBD00;
 }
 .down .status {
     color: red;
@@ -10,4 +17,31 @@
 
 .status {
     font-weight: bold;
+}
+
+div[role=main], header, footer {
+    display: block;
+    width: 650px;
+    margin: auto;
+}
+
+table {
+    width: 650px;
+}
+
+td, th {
+    padding: 2px 5px 2px 5px;
+    min-width: 110px;
+}
+
+tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+th {
+    background-color: #ACD800;
+    color: #FFF;
+}
+td.none {
+    color: #808080;
 }
