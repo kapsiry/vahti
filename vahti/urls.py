@@ -5,12 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
     (r'vahti/', include('hostmonitor.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    url(r'^vahti/admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    url(r'^vahti/admin/', include(admin.site.urls)),
+    (r'^vahti/admin/doc/', include('django.contrib.admindocs.urls')),
+    (r'^vahti/admin/', include(admin.site.urls)),
 )
