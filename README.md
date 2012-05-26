@@ -28,10 +28,16 @@ environment.
 
 For live deployments, use of supervisord is recommended.
 
-For production, set the environment variables:
+For production, set the environment variable:
 
     DJANGO_SETTINGS_MODULE=vahti.conf.prod
-    SECRET_KEY=(generate a random secret key here)
-    ADMIN_EMAIL="Foo <foo@example.com>"
+
+and create _vahti/conf/private.json_ with content:
+    {
+        "ADMIN_EMAIL": [
+            "foo <foo@example.com>"
+        ],
+        "SECRET_KEY": "generate a secret random key here"
+    }
 
 ![Vahti screenshot](http://joneskoo.kapsi.fi/tmp/vahti.png)

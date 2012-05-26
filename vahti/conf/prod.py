@@ -1,4 +1,6 @@
 import os
+import os.path
+import json
 import email.utils
 
 from .base import *
@@ -23,9 +25,11 @@ STATIC_ROOT = '/home/users/joneskoo/sites/joneskoo.kapsi.fi/secure-www/vahti-sta
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = ''
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = os.environ['SECRET_KEY']
+# Private constants
+with open(os.path.join(os.path.dirname(__file__), 'private.json')) as f:
+    private = json.load(f)
 
-admin_email_list = os.environ['ADMIN_EMAIL'].split(',')
-ADMINS = [email.utils.parseaddr(x) for x in admin_email_list]
+SECRET_KEY = private['SECRET_KEY']
+
+ADMINS = [email.utils.parseaddr(x) for x in private['ADMIN_EMAIL']]
 MANAGERS = ADMINS
