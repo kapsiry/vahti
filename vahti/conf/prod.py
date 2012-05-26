@@ -1,4 +1,5 @@
 import os
+import email.utils
 
 from .base import *
 
@@ -23,5 +24,8 @@ STATIC_ROOT = '/home/users/joneskoo/sites/joneskoo.kapsi.fi/secure-www/vahti-sta
 MEDIA_ROOT = ''
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+SECRET_KEY = os.environ['SECRET_KEY']
 
+admin_email_list = os.environ['ADMIN_EMAIL'].split(',')
+ADMINS = [email.utils.parseaddr(x) for x in admin_email_list]
+MANAGERS = ADMINS
