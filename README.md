@@ -22,17 +22,21 @@ environment.
 
     $ mkvirtualenv vahti --no-site-packages
     $ workon vahti
+    (vahti) $ cdvirtualenv 
+    (vahti) $ echo "export DJANGO_SETTINGS_MODULE=vahti.conf.dev" > bin/postactivate
+    (vahti) $ echo "unset DJANGO_SETTINGS_MODULE" > bin/postdeactivate
+    # Reload virtualenv hooks
+    (vahti) $ workon vahti
+
     (vahti) $ pip install -r requirements.txt
     (vahti) $ ./manage.py pinghosts --loop &
     (vahti) $ ./manage.py runserver &    
 
 For live deployments, use of supervisord is recommended.
 
-For production, set the environment variable:
-
-    DJANGO_SETTINGS_MODULE=vahti.conf.prod
-
+For production, set the environment variable _DJANGO\_SETTINGS\_MODULE_
 and create _vahti/conf/private.json_ with content:
+
     {
         "ADMIN_EMAIL": [
             "foo <foo@example.com>"
