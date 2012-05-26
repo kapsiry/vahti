@@ -2,7 +2,7 @@
 {% load hostmonitor_extras %}
 {% load future %}
 {% block header %}
-<h2>Hosts</h2>
+<h2>Hosts in network {{ network.name }}</h2>
 {% endblock %}
 {% block content %}
     {% if object_list %}
