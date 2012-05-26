@@ -22,12 +22,15 @@ environment.
 
     $ mkvirtualenv vahti --no-site-packages
     $ workon vahti
-    (vahti) $ pip install -r requirements.txt 
-    (vahti) $ foreman start
-
-Alternatively, the system can be started without foreman:
-
+    (vahti) $ pip install -r requirements.txt
     (vahti) $ ./manage.py pinghosts --loop &
     (vahti) $ ./manage.py runserver &    
+
+For live deployments, use of supervisord is recommended.
+
+For production, set the environment variables:
+
+    DJANGO_SECRET_KEY=(generate a random secret key here)
+    DJANGO_SETTINGS_MODULE=vahti.conf.prod
 
 ![Vahti screenshot](http://joneskoo.kapsi.fi/tmp/vahti.png)
