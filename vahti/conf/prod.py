@@ -25,6 +25,15 @@ STATIC_ROOT = '/home/users/joneskoo/sites/joneskoo.kapsi.fi/secure-www/vahti-sta
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = ''
 
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash.
+# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
+MEDIA_URL = '/media/'
+
+# URL prefix for static files.
+# Example: "http://media.lawrence.com/static/"
+STATIC_URL = 'https://joneskoo.kapsi.fi/vahti-static/'
+
 # Private constants
 with open(os.path.join(os.path.dirname(__file__), 'private.json')) as f:
     private = json.load(f)
