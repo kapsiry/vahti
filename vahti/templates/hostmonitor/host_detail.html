@@ -18,7 +18,7 @@
   </tr>
   {% for event in event_list %}
   <tr>
-    <td>{{event.time}}</td>
+    <td>{{event.time|date:"j.n.Y H:i"}}</td>
     <td>{{event.up|isup}}</td>
   </tr>
   {% endfor %}
