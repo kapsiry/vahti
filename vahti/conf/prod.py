@@ -34,6 +34,8 @@ MEDIA_URL = '/media/'
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = 'https://joneskoo.kapsi.fi/vahti-static/'
 
+USE_X_FORWARDED_HOST = True
+
 # Private constants
 with open(os.path.join(os.path.dirname(__file__), 'private.json')) as f:
     private = json.load(f)
